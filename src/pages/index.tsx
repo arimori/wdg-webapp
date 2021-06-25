@@ -1,8 +1,11 @@
+import { useContext } from 'react';
+import Link from 'next/link';
 import { Flex, Stack, Button, Text, Heading, Box } from '@chakra-ui/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import Link from 'next/link';
+
+import { AuthContext } from '../contexts/AuthContext';
 
 import { Input } from '../components/Form/Input';
 
@@ -21,10 +24,18 @@ export default function SignIn() {
     resolver: yupResolver(signInFormSchema)
   });
 
-  const handleSignIn: SubmitHandler<SignInFormData> = async (values, event) => {
-    await new Promise(resolve => setTimeout(resolve, 2000));
+  const { signIn } = useContext(AuthContext);
 
-    console.log(values);
+  const handleSignIn: SubmitHandler<SignInFormData> = async (values, event) => {
+    event?.preventDefault();
+
+    const data: SignInFormData = {
+      email: values.email,
+      password: values.password
+    }
+
+    console.log(data);
+    await signIn(data);
   };
 
   return (
@@ -54,8 +65,8 @@ export default function SignIn() {
 
         <Heading
           my="10"
-          colorScheme="gray.900"          
-          as="h1" 
+          colorScheme="gray.900"
+          as="h1"
           size="xl"
         >
           Welcome back
