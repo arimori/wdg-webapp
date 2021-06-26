@@ -1,7 +1,7 @@
 import { useQuery, UseQueryOptions } from "react-query";
 import { api } from "../apiClient";
 
-type User = {
+export type User = {
   id: number;
   email: string;
   first_name: string;
@@ -9,14 +9,15 @@ type User = {
   avatar: string;
 }
 
-type GetUsersResponse = {
+export type GetUsersResponse = {
+  totalCount: number;
   users: User[]
 }
 
 export async function getUsers(page: number): Promise<GetUsersResponse> {
-  const { data, headers } = await api.get('api/users');
+  const response = await api.get('/api/users?delay=2');
 
-  const users = data.users.map(user => {
+  const users = response.data.data.map(user => {
     return {
       id: user.id,
       email: user.email,
@@ -26,7 +27,9 @@ export async function getUsers(page: number): Promise<GetUsersResponse> {
     };
   });
 
+  const totalCount = response.data.total;
   return {
+    totalCount,
     users
   };
 }

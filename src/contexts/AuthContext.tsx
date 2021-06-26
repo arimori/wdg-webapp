@@ -83,7 +83,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
       api.defaults.headers['Authorization'] = `Bearer ${token}`; //updating token after login
 
-      Router.push('dashboard');
+      Router.push('/dashboard');
     } catch (err) {
       console.log(err);
       setIsAuthenticated(false);

@@ -8,7 +8,7 @@ export function SidebarNav() {
     <Stack spacing="12" align="flex-start">
       <NavSection title="FEATURES">
         <NavLink icon={RiDashboardFill} href="/dashboard">Dashboard</NavLink>
-        <NavLink icon={RiContactsFill}href="/users">Users</NavLink>
+        <NavLink icon={RiContactsFill} href="/users">Users</NavLink>
       </NavSection>
 
       {/* <NavSection title="FORMS">
