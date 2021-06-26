@@ -77,12 +77,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         maxAge: 60 * 60 * 24 * 30, //30 days
         path: '/' //all routes can access this cookie
       });
-
-      // setCookie(undefined, 'wdgauth.refreshToken', refreshToken, {
-      //   maxAge: 60 * 60 * 24 * 30, //30 days
-      //   path: '/' //all routes can access this cookie
-      // });
-
+      
       setUser({ token });
       setIsAuthenticated(true);
 
