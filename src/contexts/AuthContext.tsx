@@ -25,11 +25,10 @@ type AuthProviderProps = {
 
 export const AuthContext = createContext({} as AuthContextData);
 
-let authChannel: BroadcastChannel
+let authChannel: BroadcastChannel;
 
 export function signOut() {
   destroyCookie(undefined, 'wdgauth.token');
-  destroyCookie(undefined, 'wdgauth.refreshToken');
 
   authChannel?.postMessage('signOut');
 
@@ -38,7 +37,7 @@ export function signOut() {
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User>();
-  const isAuthenticated = !!user;
+  const [isAuthenticated, setIsAuthenticated] = useState(!!user);
 
   useEffect(() => {
     authChannel = new BroadcastChannel('auth');
@@ -58,15 +57,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const { 'wdgauth.token': token } = parseCookies(); //get all cookies
 
     if (token) {
-      api.get('/me')
-        .then(response => {
-          const { token } = response.data;
-
-          setUser({ token });
-        })
-        .catch(() => {
-          signOut();
-        });
+      setUser({ token });
+      setIsAuthenticated(true);
+    } else {
+      signOut();
     }
   }, []);
 
@@ -90,12 +84,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
       // });
 
       setUser({ token });
+      setIsAuthenticated(true);
 
       api.defaults.headers['Authorization'] = `Bearer ${token}`; //updating token after login
 
       Router.push('dashboard');
     } catch (err) {
       console.log(err);
+      setIsAuthenticated(false);
     }
   }
 

@@ -15,7 +15,7 @@ export function setupAPIClient(ctx = undefined) {
     }
   });
 
-  // Intercepta a todas as repostas
+  // Intercept all responses
   api.interceptors.response.use(
     (response) => {
       return response;
@@ -26,6 +26,24 @@ export function setupAPIClient(ctx = undefined) {
       }
     }
   );
-  
+
+  api.interceptors.request.use(
+    (config) => {
+      cookies = parseCookies(ctx);
+      const { 'wdgauth.token': refreshToken } = cookies;
+
+      setCookie(ctx, 'wdgauth.token', refreshToken, {
+        maxAge: 60 * 60 * 24 * 30, //30 days
+        path: '/' //all routes can access this cookie
+      });      
+
+      api.defaults.headers['Authorization'] = `Bearer ${refreshToken}`;
+      return config;
+    },
+    (error) => {
+      console.log(error);
+    }
+  )
+
   return api;
 }
