@@ -1,23 +1,88 @@
-import { useContext, useEffect } from "react"
+import React, { useContext, useState } from "react"
+import { Flex, HStack, Box, Text, Button, Heading, Icon, Spinner, useBreakpointValue, Avatar } from '@chakra-ui/react';
+import NextLink from 'next/link';
+
 import { AuthContext } from "../contexts/AuthContext";
-import { api } from "../services/apiClient"
+import { Pagination } from '../components/Pagination';
+import { Header } from '../components/Header';
+import { Sidebar } from '../components/Sidebar';
+import { useUsers } from "../services/hooks/useUsers";
+import { UserCard } from "../components/UserCard";
 
-export default function Dashboard() {
-  const { signOut, isAuthenticated } = useContext(AuthContext);
+export default function Dashboard({ users }) {
+  const { isAuthenticated } = useContext(AuthContext);
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      const response = api.get('/api/users?delay=2');
+  const [page, setPage] = useState(1);
+  //useQuery() -> chave da query 
+  const { data, isLoading, isFetching, error } = useUsers(page, {
+    initialData: users,
+  });
 
-      console.log(response);
-    } else {
-      signOut();
-    }
-
-  }, [])
-
+  const isWideVersion = useBreakpointValue({
+    base: false,
+    lg: true,
+  });
 
   return (
-    <h1>Testing authentication</h1>
+    <Flex direction="column" h="100vh">
+      {isAuthenticated && (
+        <>
+          <Header />
+
+          <Flex width="100%" my="6" maxWidth={1480} mx="auto" px="6">
+            <Sidebar />
+
+            <Box flex="1" borderRadius="8" bg="gray.100" p="8">
+              <Flex mb="8" justify="space-between" align="center">
+                <Heading size="lg" fontWeight="normal">
+                  Users
+                  {!isLoading && isFetching && <Spinner size="sm" color="gray.900" ml="4" />}
+                </Heading>
+
+                {/* <NextLink href="/users/create" passHref>
+                  <Button
+                    as="a"
+                    size="sm"
+                    fontSize="sm"
+                    colorScheme="blue"
+                    _hover={{
+                      bg: 'blue.100'
+                    }}
+                    leftIcon={<Icon as={RiAddLine} fontSize="20" />}
+                  >
+                    New user
+                  </Button>
+                </NextLink> */}
+              </Flex>
+              {isLoading ? (
+                <Flex justify="center">
+                  <Spinner />
+                </Flex>
+              ) : error ? (
+                <Flex justify="center" >
+                  <Text>Failed getting user data.</Text>
+                </Flex>
+              ) : (
+                <>
+                  {data.users.map(user => {
+                    return (
+                      <Box key={user.id} my="6">
+                        <UserCard user={user} />
+                      </Box>
+                    )
+                  })}
+
+                  <Pagination
+                    totalCountOfRegisters={data.totalCount}
+                    currentPage={page}
+                    onPageChange={setPage}
+                  />
+                </>
+              )}
+            </Box>
+          </Flex>
+        </>
+      )}
+    </Flex>
   )
 }

@@ -33,8 +33,7 @@ export default function SignIn() {
       email: values.email,
       password: values.password
     }
-
-    console.log(data);
+        
     await signIn(data);
   };
 
