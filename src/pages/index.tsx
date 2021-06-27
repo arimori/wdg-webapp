@@ -33,7 +33,7 @@ export default function SignIn() {
       email: values.email,
       password: values.password
     }
-        
+
     await signIn(data);
   };
 
@@ -47,23 +47,23 @@ export default function SignIn() {
       <Flex
         as="form"
         width="100%"
-        maxWidth={650}
+        maxWidth={[360, 650]}
         height={800}
         bg="gray.100"
-        p="4"
+        p={["16", "4"]}
         borderRadius={8}
         flexDir="column"
         align="center"
         onSubmit={handleSubmit(handleSignIn)}
       >
-        <Box my="10">
+        <Box my={["6", "10"]}>
           <Link href="https://www.wdgautomation.com/">
             <img src="/Logo.svg" alt="WDG Automation An IBM Company" />
           </Link>
         </Box>
 
         <Heading
-          my="10"
+          my={["6", "10"]}
           colorScheme="gray.900"
           as="h1"
           size="xl"
@@ -76,7 +76,7 @@ export default function SignIn() {
             type="email"
             nameForm="email"
             label="E-mail"
-            width={420}
+            width={[240, 420]}
             error={formState.errors.email}
             {...register('email')}
           />
@@ -84,7 +84,7 @@ export default function SignIn() {
             type="password"
             nameForm="password"
             label="Senha"
-            width={420}
+            width={[240, 420]}
             error={formState.errors.password}
             {...register('password')}
           />
@@ -92,8 +92,8 @@ export default function SignIn() {
 
         <Button
           type="submit"
-          mt="12"
-          width={420}
+          mt={["4", "12"]}
+          width={[240, 420]}
           bg="blue.100"
           _hover={{
             bgColor: 'blue.300'

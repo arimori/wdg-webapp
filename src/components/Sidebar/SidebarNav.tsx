@@ -10,11 +10,6 @@ export function SidebarNav() {
         <NavLink icon={RiDashboardFill} href="/dashboard">Dashboard</NavLink>
         <NavLink icon={RiContactsFill} href="/users">Users</NavLink>
       </NavSection>
-
-      {/* <NavSection title="FORMS">
-        <NavLink icon={RiInputMethodLine} href="/edit">Edit</NavLink>
-        <NavLink icon={RiGitMergeLine} href="/delete">Delte</NavLink>
-      </NavSection> */}
     </Stack>
   );
 }

@@ -2,7 +2,7 @@ import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import {
   Flex, HStack, Box, Text, Button, Icon, Avatar, useDisclosure,
-  Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, useToast,
+  Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, useToast, useBreakpointValue,
 } from '@chakra-ui/react';
 import { RiDeleteBinLine, RiEditBoxLine } from "react-icons/ri";
 
@@ -17,6 +17,11 @@ export function UserCard({ user }: UserCard) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
   const toast = useToast();
+
+  const isWideVersion = useBreakpointValue({
+    base: false,
+    lg: true,
+  })
 
   async function handleRemoveUser(id: number) {
     const { status } = await api.delete(`api/users/${id}`);
@@ -81,9 +86,14 @@ export function UserCard({ user }: UserCard) {
           name={`${user.first_name} ${user.last_name}`}
           src={user.avatar}
         />
-        <Box ml="4">
-          <Text fontWeight="bold">{user.first_name} {user.last_name}</Text>
-          <Text>{user.email}</Text>
+        <Box ml={["2", "4"]}>
+          <Text fontWeight="bold" fontSize={['sm', 'md', 'lg']}>
+            {user.first_name} {user.last_name}
+          </Text>
+
+          <Text fontSize={['sm', 'md', 'lg']}>
+            {user.email}
+          </Text>
         </Box>
       </Flex>
 
@@ -96,30 +106,54 @@ export function UserCard({ user }: UserCard) {
               query: { id: user.id },
             }}
           >
+            {isWideVersion ? (
+              <Button
+                as="a"
+                size="sm"
+                fontSize="sm"
+                colorScheme="blue"
+                variant="outline"
+                leftIcon={<Icon as={RiEditBoxLine} fontSize="20" />}
+              >
+                Edit
+              </Button>
+            ) : (
+              <Button
+                as="a"
+                size="xs"
+                fontSize="sm"
+                colorScheme="blue"
+                variant="ghost"
+              >
+                <Icon as={RiEditBoxLine} fontSize="20" />
+              </Button>
+            )}
+          </NextLink>
+
+          {isWideVersion ? (
             <Button
               as="a"
               size="sm"
               fontSize="sm"
-              colorScheme="blue"
+              colorScheme="pink"
               variant="outline"
-              leftIcon={<Icon as={RiEditBoxLine} fontSize="20" />}
+              onClick={onOpen}
+              leftIcon={<Icon as={RiDeleteBinLine} fontSize="20" />}
             >
-              Edit
+              Delete
             </Button>
-          </NextLink>
-
-          <Button
-            as="a"
-            size="sm"
-            fontSize="sm"
-            colorScheme="pink"
-            variant="outline"
-            onClick={onOpen}
-            leftIcon={<Icon as={RiDeleteBinLine} fontSize="20" />}
-          >
-            Delete
-          </Button>
-
+          ) : (
+            <Button
+              as="a"
+              size="xs"
+              fontSize="sm"
+              colorScheme="pink"
+              variant="ghost"
+              onClick={onOpen}
+            >
+              <Icon as={RiDeleteBinLine} fontSize="20" />
+            </Button>
+          )}
         </HStack>
       </Flex>
     </Flex>
