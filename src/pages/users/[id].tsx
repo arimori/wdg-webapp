@@ -111,7 +111,7 @@ export default function EditUser({ user }: EditUserProps) {
 
           <VStack spacing="8">
             <SimpleGrid minChildWidth="240px" spacing={["6", "8"]} w="100%">
-              <Avatar size="2xl" name="Naoshi Arimori" src={user.avatar} />
+              <Avatar size="2xl" name={`${user.first_name} ${user.last_name}`} src={user.avatar} />
 
               <Input
                 name="first_name"

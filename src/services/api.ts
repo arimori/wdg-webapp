@@ -2,9 +2,6 @@ import axios, { AxiosError } from 'axios';
 import { parseCookies, setCookie } from 'nookies';
 import { signOut } from '../contexts/AuthContext';
 
-// let isRefreshing = false;
-// let failedRequestsQueue = [];
-
 export function setupAPIClient(ctx = undefined) {
   let cookies = parseCookies(ctx);
 
@@ -31,8 +28,14 @@ export function setupAPIClient(ctx = undefined) {
     (config) => {
       cookies = parseCookies(ctx);
       const { 'wdgauth.token': refreshToken } = cookies;
+      const { 'wdgauth.userSignedIn': userSignedIn } = cookies;
 
       setCookie(ctx, 'wdgauth.token', refreshToken, {
+        maxAge: 60 * 60 * 24 * 30, //30 days
+        path: '/' //all routes can access this cookie
+      });      
+      
+      setCookie(ctx, 'wdgauth.userSignedIn', userSignedIn, {
         maxAge: 60 * 60 * 24 * 30, //30 days
         path: '/' //all routes can access this cookie
       });      
