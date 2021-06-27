@@ -4,7 +4,7 @@
 </br>
 
 ## 💡 What is it?
-This is a system requested as a technical assesment by WDG Automation.
+This is a system requested as a technical assessment by WDG Automation.
 
 ## 🚀 Built With
 * [NextJS](https://nextjs.org/)
