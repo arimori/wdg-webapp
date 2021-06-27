@@ -11,10 +11,22 @@ This is a system requested as a technical assesment by WDG Automation.
 * [Typescript](https://www.typescriptlang.org/)
 * [React](https://reactjs.org/)
 * [ChakraUI](https://chakra-ui.com/)
+* [React-Hook-Form](https://react-hook-form.com/)
+* [Axios](https://github.com/axios/axios)
+* [Yup](https://github.com/jquense/yup)
+* [React-icons](https://react-icons.github.io/react-icons/icons?name=ri)
+* [React-query](https://react-query.tanstack.com/)
 
 ## Getting Started
 
-First, run the development server:
+First, install all dependencies:
+```bash
+npm install
+# or
+yarn
+```
+
+Then, run the development server:
 
 ```bash
 npm run dev
