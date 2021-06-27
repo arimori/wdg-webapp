@@ -13,7 +13,6 @@ export default function Dashboard({ users }) {
   const { isAuthenticated } = useContext(AuthContext);
 
   const [page, setPage] = useState(1);
-  //useQuery() -> chave da query 
   const { data, isLoading, isFetching, error } = useUsers(page, {
     initialData: users,
   });
@@ -38,21 +37,6 @@ export default function Dashboard({ users }) {
                   Users
                   {!isLoading && isFetching && <Spinner size="sm" color="gray.900" ml="4" />}
                 </Heading>
-
-                {/* <NextLink href="/users/create" passHref>
-                  <Button
-                    as="a"
-                    size="sm"
-                    fontSize="sm"
-                    colorScheme="blue"
-                    _hover={{
-                      bg: 'blue.100'
-                    }}
-                    leftIcon={<Icon as={RiAddLine} fontSize="20" />}
-                  >
-                    New user
-                  </Button>
-                </NextLink> */}
               </Flex>
               {isLoading ? (
                 <Flex justify="center">

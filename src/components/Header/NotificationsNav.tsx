@@ -21,7 +21,8 @@ export function NotificationsNav() {
         fontSize="sm"
         color="gray.900"
         _hover={{
-          color: 'gray.900'
+          color: 'gray.900',
+          cursor: 'pointer',
         }}
         variant="outline"
         onClick={() => signOut()}

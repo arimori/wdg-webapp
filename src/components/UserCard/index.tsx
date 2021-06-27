@@ -95,7 +95,6 @@ export function UserCard({ user }: UserCard) {
               pathname: '/users/[id]',
               query: { id: user.id },
             }}
-          // href={`/users/${user.id}`} 
           >
             <Button
               as="a"
