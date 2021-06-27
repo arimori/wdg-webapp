@@ -18,6 +18,7 @@ export function Profile({ showProfileData }: ProfileProps) {
   const { userSignedIn } = useContext(AuthContext);
 
   const [userAuthenticated, setUserAuthenticated] = useState<UserAuthenticatedProps>();
+  
 
   async function getAllUsers() {
     const response = await api.get('/api/users?delay=2');

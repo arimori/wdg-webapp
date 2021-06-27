@@ -6,8 +6,8 @@ import { signOut } from '../../contexts/AuthContext';
 export function NotificationsNav() {
   return (
     <HStack
-      spacing={["6", "8"]}
-      mx={["6", "8"]}
+      spacing={["4", "6", "8"]}
+      mx={["4", "6", "8"]}
       pr={["6", "8"]}
       py="1"
       color="gray.900"
