@@ -3,7 +3,7 @@ import { FieldError } from 'react-hook-form';
 import { Input as ChakraInput, FormLabel, FormControl, Text, InputProps as ChakraInputProps, FormErrorMessage } from '@chakra-ui/react';
 
 interface InputProps extends ChakraInputProps {
-  nameForm: string;
+  nameForm?: string;
   label?: string;
   error?: FieldError;
 }

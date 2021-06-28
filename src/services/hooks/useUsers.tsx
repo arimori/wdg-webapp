@@ -1,5 +1,6 @@
 import { useQuery, UseQueryOptions } from "react-query";
 import { api } from "../apiClient";
+import { AuthTokenError } from "../errors/AuthTokenError";
 
 export type User = {
   id: number;
@@ -28,6 +29,7 @@ export async function getUsers(page: number): Promise<GetUsersResponse> {
   });
 
   const totalCount = response.data.total;
+
   return {
     totalCount,
     users
@@ -35,7 +37,7 @@ export async function getUsers(page: number): Promise<GetUsersResponse> {
 }
 
 export function useUsers(page: number, options: UseQueryOptions) {
-  return useQuery(['users', page], () => getUsers(page), {
+  return useQuery<any>(['users', page], () => getUsers(page), {
     staleTime: 1000 * 60 * 10, //10 minutes, then it'll be fresh
     ...options,
   });

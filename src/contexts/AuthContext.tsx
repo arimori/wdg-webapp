@@ -15,7 +15,7 @@ type SignInCredentials = {
 type AuthContextData = {
   signIn: (credentials: SignInCredentials) => Promise<void>;
   signOut: () => void;
-  user: User;
+  user: string;
   isAuthenticated: boolean;
   userSignedIn?: string;
 }
@@ -38,7 +38,7 @@ export function signOut() {
 }
 
 export function AuthProvider({ children }: AuthProviderProps) {
-  const [user, setUser] = useState<User>();
+  const [user, setUser] = useState('');
   const [userSignedIn, setUserSignedIn] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(!!user);
 
@@ -61,7 +61,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const { 'wdgauth.userSignedIn': email } = parseCookies();
 
     if (token) {
-      setUser({ token });
+      setUser(token);
       setIsAuthenticated(true);
       setUserSignedIn(email);
     } else {
@@ -88,7 +88,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         path: '/' //all routes can access this cookie
       });
 
-      setUser({ token });
+      setUser(token);
       setIsAuthenticated(true);
       setUserSignedIn(email);
 
@@ -103,8 +103,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }
 
   return (
-    <AuthContext.Provider value={{ signIn, signOut, isAuthenticated, user, userSignedIn }}>
+    <AuthContext.Provider value={{
+      signIn,
+      signOut,
+      isAuthenticated,
+      user,
+      userSignedIn
+    }}>
       {children}
-    </AuthContext.Provider>
+    </AuthContext.Provider >
   )
 }

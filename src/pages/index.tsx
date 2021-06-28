@@ -1,12 +1,13 @@
 import { useContext } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Flex, Stack, Button, Text, Heading, Box } from '@chakra-ui/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { AuthContext } from '../contexts/AuthContext';
-
+import LogoImg from '../../public/Logo.svg';
 import { Input } from '../components/Form/Input';
 
 type SignInFormData = {
@@ -58,7 +59,10 @@ export default function SignIn() {
       >
         <Box my={["6", "10"]}>
           <Link href="https://www.wdgautomation.com/">
-            <img src="/Logo.svg" alt="WDG Automation An IBM Company" />
+            <Image 
+              src={LogoImg}
+              alt="WDG Automation An IBM Company" 
+            />
           </Link>
         </Box>
 

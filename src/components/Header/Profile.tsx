@@ -18,22 +18,26 @@ export function Profile({ showProfileData }: ProfileProps) {
   const { userSignedIn } = useContext(AuthContext);
 
   const [userAuthenticated, setUserAuthenticated] = useState<UserAuthenticatedProps>();
-  
-
-  async function getAllUsers() {
-    const response = await api.get('/api/users?delay=2');
-
-    const { first_name, last_name, email, avatar } = response.data.data.find(user => user.email === userSignedIn);
-
-    setUserAuthenticated({
-      full_name: `${first_name} ${last_name}`,
-      email,
-      avatar
-    });
-  }
 
   useEffect(() => {
-    getAllUsers();
+    async function getAllUsers() {
+
+      const response = await api.get('/api/users?delay=2');
+
+      const { first_name, last_name, email, avatar } = response.data.data.find(
+        (user: UserAuthenticatedProps) => user.email === userSignedIn
+      );
+
+      setUserAuthenticated({
+        full_name: `${first_name} ${last_name}`,
+        email,
+        avatar
+      });
+
+    }
+    if (!userAuthenticated)
+      getAllUsers();
+
   }, [])
 
   return (

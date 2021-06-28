@@ -1,25 +1,28 @@
 import React, { useContext, useState } from "react"
-import { Flex, HStack, Box, Text, Button, Heading, Icon, Spinner, useBreakpointValue, Avatar } from '@chakra-ui/react';
-import NextLink from 'next/link';
+import { Flex, Box, Text, Heading, Spinner } from '@chakra-ui/react';
 
 import { AuthContext } from "../contexts/AuthContext";
 import { Pagination } from '../components/Pagination';
 import { Header } from '../components/Header';
 import { Sidebar } from '../components/Sidebar';
-import { useUsers } from "../services/hooks/useUsers";
+import { User, useUsers } from "../services/hooks/useUsers";
 import { UserCard } from "../components/UserCard";
 
-export default function Dashboard({ users }) {
+interface DashboardProps {
+  users: User[];
+}
+
+interface dataFromUsers {
+  totalCount: number;
+  users: User[];
+}
+
+export default function Dashboard({ users }: DashboardProps) {
   const { isAuthenticated } = useContext(AuthContext);
 
   const [page, setPage] = useState(1);
   const { data, isLoading, isFetching, error } = useUsers(page, {
     initialData: users,
-  });
-
-  const isWideVersion = useBreakpointValue({
-    base: false,
-    lg: true,
   });
 
   return (
