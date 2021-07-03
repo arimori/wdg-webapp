@@ -17,7 +17,10 @@ so that check and update the store data in cookies. Nevertheless, all API calls 
 - For queries to user data (`https://reqres.in/api/users`) I used react-query to cache the results and revalidate this every 10 minutes.
 
 ### UI
-- I've choose to use ChakraUI due to the pure and customizable components, as well as the breakpoints for the mobile interface. Also, this was used as a Design System in order to guarantee standardization in styling, so that each component had its unique and non-shareable styling.
+- I've choose to use ChakraUI due to the pure and customizable components, as well as the breakpoints for the mobile interface. Also, this was used as a Design System in order to guarantee standardization in styling, so that each component had its unique and non-shareable styling. Also, the UI was first created using [Figma](https://www.figma.com/file/xQFSSZGxXeJoK3dxF1m33j/WDG?node-id=5%3A19939).
+
+## ✅ Deploy
+- This is the [first version deployed using Vercel](https://wdg-webapp-7vbi51ao2-arimori.vercel.app).
 
 ## 🚀 Built With
 * [NextJS](https://nextjs.org/)
