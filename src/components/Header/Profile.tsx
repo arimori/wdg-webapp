@@ -21,7 +21,6 @@ export function Profile({ showProfileData }: ProfileProps) {
 
   useEffect(() => {
     async function getAllUsers() {
-
       const response = await api.get('/api/users?delay=2');
 
       const { first_name, last_name, email, avatar } = response.data.data.find(
@@ -33,8 +32,8 @@ export function Profile({ showProfileData }: ProfileProps) {
         email,
         avatar
       });
-
     }
+
     if (!userAuthenticated)
       getAllUsers();
 

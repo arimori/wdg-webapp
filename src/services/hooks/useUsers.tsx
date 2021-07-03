@@ -16,7 +16,7 @@ export type GetUsersResponse = {
 }
 
 export async function getUsers(page: number): Promise<GetUsersResponse> {
-  const response = await api.get('/api/users?delay=2');
+  const response = await api.get(`/api/users?delay=2&page=${page}`);
 
   const users = response.data.data.map(user => {
     return {
