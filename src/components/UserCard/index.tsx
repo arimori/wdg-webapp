@@ -62,7 +62,7 @@ export function UserCard({ user }: UserCard) {
           <ModalHeader>Delete user</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Text> Are you sure you want do delete this user?</Text>
+            <Text> Are you sure you want to delete this user?</Text>
           </ModalBody>
 
           <ModalFooter>
